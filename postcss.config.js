@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+// only needed if you want to purge
 module.exports = {
   plugins: [
     require("postcss-import"),
