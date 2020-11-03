@@ -106,7 +106,7 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.11.5)
+    graphql (1.11.6)
     graphql-schema_comparator (1.0.0)
       bundler (>= 1.14)
       graphql (~> 1.10)
