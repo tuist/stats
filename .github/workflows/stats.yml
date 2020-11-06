@@ -16,10 +16,10 @@ jobs:
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: "$RUBY_VERSION"
+          ruby-version: "${{ env.RUBY_VERSION }}"
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: "$NODE_VERSION"
+          node-version: "${{ env.NODE_VERSION }}"
       - uses: actions/cache@v2
         name: Cache Bundler dependencies
         with:
@@ -77,10 +77,10 @@ jobs:
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: "$RUBY_VERSION"
+          ruby-version: "${{ env.RUBY_VERSION }}"
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: "$NODE_VERSION"
+          node-version: "${{ env.NODE_VERSION }}"
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
@@ -152,10 +152,10 @@ jobs:
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: "$RUBY_VERSION"
+          ruby-version: "${{ env.RUBY_VERSION }}"
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: "$NODE_VERSION"
+          node-version: "${{ env.NODE_VERSION }}"
       - uses: actions/cache@v2
         name: Cache Bundler dependencies
         with:
@@ -221,10 +221,10 @@ jobs:
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: "$RUBY_VERSION"
+          ruby-version: "${{ env.RUBY_VERSION }}"
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: "$NODE_VERSION"
+          node-version: "${{ env.NODE_VERSION }}"
       - uses: actions/cache@v2
         name: Cache Bundler dependencies
         with:
