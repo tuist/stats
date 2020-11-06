@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    // "declaration": false,
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es6", "dom"],
@@ -9,7 +9,7 @@
     "sourceMap": true,
     "target": "es5",
     "jsx": "react",
-    // "noEmit": true,
+    "noEmit": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
