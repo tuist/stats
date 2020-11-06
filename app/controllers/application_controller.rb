@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_raven_context
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   def app
     render component: "App", prerender: false
