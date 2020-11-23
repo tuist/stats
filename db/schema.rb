@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_104230) do
+ActiveRecord::Schema.define(version: 2020_11_23_003034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,19 @@ ActiveRecord::Schema.define(version: 2020_10_25_104230) do
     t.index ["provider"], name: "index_authorizations_on_provider"
     t.index ["uid"], name: "index_authorizations_on_uid"
     t.index ["user_id"], name: "index_authorizations_on_user_id"
+  end
+
+  create_table "command_events", force: :cascade do |t|
+    t.string "name"
+    t.string "subcommand"
+    t.json "params"
+    t.integer "duration"
+    t.string "client_id"
+    t.string "tuist_version"
+    t.string "swift_version"
+    t.string "macos_version"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
