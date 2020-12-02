@@ -21,6 +21,8 @@
     "add": "^2.0.6",
     "autoprefixer": "^9.8.6",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "chart.js": "^2.9.4",
+    "chartkick": "^3.2.1",
     "graphql": "^15.4.0",
     "graphql-ruby-client": "^1.8.1",
     "graphql-tag": "^2.11.0",
@@ -35,6 +37,9 @@
     "typescript": "^4.0.5",
     "webpacker": "^4.6.0",
     "yarn": "^1.22.10"
+  },
+  "resolutions": {
+    "webpacker/webapp-webpack-plugin/favicons/sharp": "0.26.3"
   },
   "version": "0.1.0",
   "devDependencies": {

@@ -1,8 +1,8 @@
 class CommandEventsController < ApplicationController
   before_action :set_command_event, only: [:show, :edit, :update, :destroy]
-
-  # Only in development we want to be able to explore the database via a convenient interface
-  # before_action :restrict_to_development, :only => [:index, :show, :new, :edit, :update, :destroy]
+  
+  # Only in development we want to be able to explore the database via a convenient interface. Create is the only API exposed in production
+  before_action :restrict_to_development, :only => [:index, :show, :new, :edit, :update, :destroy]
 
   # GET /command_events
   # GET /command_events.json
@@ -73,5 +73,9 @@ class CommandEventsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def command_event_params
       params.require(:command_event).permit(:name, :subcommand, :params, :duration, :client_id, :tuist_version, :swift_version, :macos_version)
+    end
+
+    def restrict_to_development
+      head(:bad_request) unless Rails.env.development?
     end
 end
