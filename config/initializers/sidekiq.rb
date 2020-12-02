@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+
 if Rails.env.production?
   url = ENV.fetch("REDIS_URL")
   sidekiq_config = { url: url }
