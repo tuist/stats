@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CommandEventsController < ApplicationController
   before_action :set_command_event, only: [:show, :edit, :update, :destroy]
-  
+
   # Only in development we want to be able to explore the database via a convenient interface. Create is the only API exposed in production
-  before_action :restrict_to_development, :only => [:index, :show, :new, :edit, :update, :destroy]
+  before_action :restrict_to_development, only: [:index, :show, :new, :edit, :update, :destroy]
 
   # GET /command_events
   # GET /command_events.json
@@ -31,7 +33,7 @@ class CommandEventsController < ApplicationController
 
     respond_to do |format|
       if @command_event.save
-        format.html { redirect_to @command_event, notice: 'Command event was successfully created.' }
+        format.html { redirect_to @command_event, notice: "Command event was successfully created." }
         format.json { render :show, status: :created, location: @command_event }
       else
         format.html { render :new }
@@ -45,7 +47,7 @@ class CommandEventsController < ApplicationController
   def update
     respond_to do |format|
       if @command_event.update(command_event_params)
-        format.html { redirect_to @command_event, notice: 'Command event was successfully updated.' }
+        format.html { redirect_to @command_event, notice: "Command event was successfully updated." }
         format.json { render :show, status: :ok, location: @command_event }
       else
         format.html { render :edit }
@@ -59,7 +61,7 @@ class CommandEventsController < ApplicationController
   def destroy
     @command_event.destroy
     respond_to do |format|
-      format.html { redirect_to command_events_url, notice: 'Command event was successfully destroyed.' }
+      format.html { redirect_to command_events_url, notice: "Command event was successfully destroyed." }
       format.json { head :no_content }
     end
   end

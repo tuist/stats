@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-  def restrict_to_development
-    head(:bad_request) unless Rails.env.development?
-  end
+    def restrict_to_development
+      head(:bad_request) unless Rails.env.development?
+    end
 
   private
     def set_raven_context
