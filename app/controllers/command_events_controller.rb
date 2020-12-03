@@ -5,7 +5,8 @@ class CommandEventsController < ApplicationController
 
   # Only in development we want to be able to explore the database via a convenient interface. Create is the only API exposed in production
   before_action :restrict_to_development, only: [:index, :show, :new, :edit, :update, :destroy]
-
+  skip_before_action :verify_authenticity_token
+  
   # GET /command_events
   # GET /command_events.json
   def index
