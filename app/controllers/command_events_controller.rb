@@ -5,8 +5,8 @@ class CommandEventsController < ApplicationController
 
   # Only in development we want to be able to explore the database via a convenient interface. Create is the only API exposed in production
   before_action :restrict_to_development, only: [:index, :show, :new, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
-  
+  skip_before_action :verify_authenticity_token, if: :json_request?
+
   # GET /command_events
   # GET /command_events.json
   def index
@@ -80,5 +80,9 @@ class CommandEventsController < ApplicationController
 
     def restrict_to_development
       head(:bad_request) unless Rails.env.development?
+    end
+
+    def json_request? 
+      request.format.json?
     end
 end
