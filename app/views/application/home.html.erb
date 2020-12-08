@@ -2,10 +2,10 @@
 
 <nav class="fixed flex items-center justify-between flex-wrap bg-white p-4 w-full top-0 shadow">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <svg class="fill-current h-12 xs:h-8 mr-2" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+        <svg class="fill-current h-12 mr-2" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
             <%= show_svg("logo.svg")%>
         </svg>
-        <span class="font-semibold text-xl text-black tracking-tight"><%= t("home.nav.title") %></span>
+        <span class="font-semibold sm:text-4xl lg:text-xl text-black tracking-tight"><%= t("home.nav.title") %></span>
     </div>
     <div class="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
@@ -24,210 +24,209 @@
         </div>
     </div>
     <div class="mr-4 mt-0">
-        <a href="https://www.tuist.io/docs/usage/getting-started/" target="_blank" class="inline-block text-sm px-4 py-2 leading-none border rounded text-primary border-primary">Get started</a>
+        <a href="https://www.tuist.io/docs/usage/getting-started/" target="_blank" class="inline-block sm:text-4xl lg:text-sm px-4 py-2 leading-none border rounded text-primary border-primary">Get started</a>
     </div>
 </nav>
 
-<!-- Headline -->
 
-<!-- TODO: mt-24 is a hack here, because I don't know how to set a margin relative to the nav-bar that is class=fixed -->
-<div class="mt-24 mx-auto max-w-7xl px-4">
-    <div class="text-center">
-        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-            <span class="block"> <%= t("home.headline.title") %></span>
-            <span class="block text-primary"> <%= t("home.headline.subtitle") %> </span>
-            <div id="generated-projects-counter" class="text-gray-900 font-bold">0</div>
-        </h1>
-        <p class="mt-8 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-            <%= t("home.headline.p1") %>
-            </br>
-            <%= t("home.headline.p2") %>
-        </p>
-    </div>
-</div>
-</div>
-
-<!-- Daily stats -->
-
-<div id="wrapper" class="max-w-xl px-4 py-4 mx-auto mt-8">
-    <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
-        <div id="jh-stats-positive" class="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded">
-            <div>
-                <p class="text-3xl font-semibold text-center text-gray-800">
-                    <%= CommandEvent.where("name = 'generate' AND created_at >= ?", 1.day.ago.to_datetime).count %>
-                </p>
-            </div>
-            <p class="text-lg text-center text-gray-500"><%= t("home.stats.today_generated") %></p>
-        </div>
-
-        <div id="jh-stats-negative" class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0">
-            <div>
-                <p class="text-3xl font-semibold text-center text-gray-800">
-                    <%= CommandEvent.where("name = 'focus' AND created_at >= ?", 1.day.ago.to_datetime).count %>
-                </p>
-                <p class="text-lg text-center text-gray-500"><%= t("home.stats.today_focused") %></p>
-            </div>
-        </div>
-
-        <div id="jh-stats-neutral" class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0">
-            <div>
-                <p class="text-3xl font-semibold text-center text-gray-800">
-                    <%= CommandEvent.where("name = 'cache' AND subcommand = 'warm' AND created_at >= ?", 1.day.ago.to_datetime).count %>
-                </p>
-                <p class="text-lg text-center text-gray-500"><%= t("home.stats.today_cache") %></p>
-            </div>
+<!-- Container with padding -->
+<div class="mx-auto sm:px-8 lg:px-32">
+    <!-- Headline -->
+    <!-- TODO: mt-24 is a hack here, because I don't know how to set a margin relative to the nav-bar that is class=fixed -->
+    <div class="mt-24 mx-auto max-w-7xl px-4">
+        <div class="text-center">
+            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                <span class="block"> <%= t("home.headline.title") %></span>
+                <span class="block text-primary"> <%= t("home.headline.subtitle") %> </span>
+                <div id="generated-projects-counter" class="text-gray-900 font-bold">0</div>
+            </h1>
+            <p class="mt-8 max-w-md mx-auto text-base text-gray-500 sm:text-3xl lg:text-xl mt-5 max-w-3xl">
+                <%= t("home.headline.p1") %>
+                </br>
+                <%= t("home.headline.p2") %>
+            </p>
         </div>
     </div>
-</div>
 
-<!-- Most used commands -->
+    <!-- Daily stats -->
 
-<div class="block mt-8">
-    <div class="container px-4 py-4 mx-auto">
-        <h3 class="block text-xl text-gray-700 font-semibold mb-3"></h3>
-        <div class="flex">
-            <div class="w-1/2">
-                <div class="rounded-md p-6 bg-white">
-                    <div class="mb-2 pb-2">
-                        <h3 class="font-semibold text-lg text-black"><%= t("home.stats.most_used") %></h3>
-                    </div>
-                    <%= pie_chart CommandEvent.group(:name).count, donut:true, colors: ApplicationHelper::TuistGraphColorPalette %>
+    <div id="wrapper" class="max-w-xl py-4 mx-auto mt-8">
+        <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
+            <div id="jh-stats-positive" class="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded">
+                <div>
+                    <p class="sm:text-3xl lg:text-xl font-semibold text-center text-gray-800">
+                        <%= CommandEvent.where("name = 'generate' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                    </p>
+                </div>
+                <p class="sm:text-xl lg:text-lg text-center text-gray-500"><%= t("home.stats.today_generated") %></p>
+            </div>
+
+            <div id="jh-stats-negative" class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0">
+                <div>
+                    <p class="sm:text-3xl lg:text-xl font-semibold text-center text-gray-800">
+                        <%= CommandEvent.where("name = 'focus' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                    </p>
+                    <p class="sm:text-xl lg:text-lg text-center text-gray-500"><%= t("home.stats.today_focused") %></p>
                 </div>
             </div>
-            <div class="w-1/2 ml-4">
-                <div class="rounded-md p-6 bg-white">
-                    <div class="mb-2 pb-2">
-                        <h3 class="font-semibold text-lg text-black"><%= t("home.stats.tuist_version") %></h3>
-                    </div>
-                    <%= pie_chart CommandEvent.group(:tuist_version).count, colors: ApplicationHelper::TuistGraphColorPalette %>
+
+            <div id="jh-stats-neutral" class="flex flex-col justify-center px-4 py-4 mt-4 bg-white border border-gray-300 rounded sm:mt-0">
+                <div>
+                    <p class="sm:text-3xl lg:text-xl font-semibold text-center text-gray-800">
+                        <%= CommandEvent.where("name = 'cache' AND subcommand = 'warm' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                    </p>
+                    <p class="sm:text-xl lg:text-lg text-center text-gray-500"><%= t("home.stats.today_cache") %></p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+    <!-- Most used commands -->
 
-<div class="block">
-    <div class="container px-4 py-4 mx-auto">
-        <h3 class="block text-xl text-gray-700 font-semibold mb-3"></h3>
-        <div class="flex">
-            <div class="w-1/2">
-                <div class="rounded-md p-6 bg-white">
-                    <div class="mb-2 pb-2">
-                        <h3 class="font-semibold text-lg text-black"><%= t("home.stats.avg_duration") %></h3>
+    <div class="block mt-8">
+        <div class="container px-4 py-4 mx-auto">
+            <div class="flex">
+                <div class="w-1/2">
+                    <div class="rounded-md p-6 bg-white">
+                        <div class="mb-2 pb-2">
+                            <h3 class="font-semibold sm:text-2xl lg:text-lg text-black"><%= t("home.stats.most_used") %></h3>
+                        </div>
+                        <%= pie_chart CommandEvent.group(:name).count, donut:true, colors: ApplicationHelper::TuistGraphColorPalette %>
                     </div>
-                    <%= bar_chart CommandEvent.group(:name).average(:duration), colors: ApplicationHelper::TuistGraphColorPalette %>
                 </div>
-            </div>
-            <div class="w-1/2 ml-4">
-                <div class="rounded-md p-6 bg-white">
-                    <div class="mb-2 pb-2">
-                        <h3 class="font-semibold text-lg text-black"><%= t("home.stats.daily_generated") %></h3>
+                <div class="w-1/2 ml-4">
+                    <div class="rounded-md p-6 bg-white">
+                        <div class="mb-2 pb-2">
+                            <h3 class="font-semibold sm:text-2xl lg:text-lg text-black"><%= t("home.stats.tuist_version") %></h3>
+                        </div>
+                        <%= pie_chart CommandEvent.group(:tuist_version).count, colors: ApplicationHelper::TuistGraphColorPalette %>
                     </div>
-                    <%= line_chart CommandEvent.group_by_day(:created_at).count, colors: ApplicationHelper::TuistGraphColorPalette  %>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="block">
-    <div class="container px-4 py-4 mx-auto">
-        <h3 class="block text-xl text-gray-700 font-semibold mb-3"></h3>
-        <div class="flex">
-            <div class="w-1/2">
-                <div class="rounded-md p-6 bg-white">
-                    <div class="mb-2 pb-2">
-                        <h3 class="font-semibold text-lg text-black"><%= t("home.stats.macos_distribution") %></h3>
-                    </div>
-                    <%= pie_chart CommandEvent.group(:macos_version).count, colors: ApplicationHelper::TuistGraphColorPalette  %>
-                </div>
-            </div>
-            <div class="w-1/2 ml-4">
-                <div class="rounded-md p-6 bg-white">
-                    <div class="mb-2 pb-2">
-                        <h3 class="font-semibold text-lg text-black"><%= t("home.stats.swift_distribution") %></h3>
-                    </div>
-                    <%= pie_chart CommandEvent.group(:swift_version).count, colors: ApplicationHelper::TuistGraphColorPalette  %>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Why -->
 
-<div class="bg-white">
-    <div class="max-w-7xl mx-auto py-16 px-4 divide-y-2 divide-primary sm:py-24 sm:px-6 lg:px-8" id="faq">
-        <h2 class="text-3xl font-extrabold text-gray-900">
-            <%= t("home.faq.title") %>
-        </h2>
-        <div class="mt-6 pt-10">
-            <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-8 md:gap-y-12">
-                <div>
-                    <dt class="text-lg leading-6 font-medium text-gray-900">
-                        <%= t("home.faq.why") %>
-                    </dt>
-                    <dd class="mt-2 text-base text-gray-500">
-                        <%= t("home.faq.why_answer") %>
-                    </dd>
+    <div class="block">
+        <div class="container px-4 py-4 mx-auto">
+            <div class="flex">
+                <div class="w-1/2">
+                    <div class="rounded-md p-6 bg-white">
+                        <div class="mb-2 pb-2">
+                            <h3 class="font-semibold sm:text-2xl lg:text-lg text-black"><%= t("home.stats.avg_duration") %></h3>
+                        </div>
+                        <%= bar_chart CommandEvent.group(:name).average(:duration), colors: ApplicationHelper::TuistGraphColorPalette %>
+                    </div>
                 </div>
-
-                <div>
-                    <dt class="text-lg leading-6 font-medium text-gray-900">
-                        <%= t("home.faq.opt_out") %>
-                    </dt>
-                    <dd class="mt-2 text-base text-gray-500">
-                        <%= t("home.faq.opt_out_answer") %>
-                    </dd>
+                <div class="w-1/2 ml-4">
+                    <div class="rounded-md p-6 bg-white">
+                        <div class="mb-2 pb-2">
+                            <h3 class="font-semibold sm:text-2xl lg:text-lg text-black"><%= t("home.stats.daily_generated") %></h3>
+                        </div>
+                        <%= line_chart CommandEvent.group_by_day(:created_at).count, colors: ApplicationHelper::TuistGraphColorPalette  %>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <div>
-                    <dt class="text-lg leading-6 font-medium text-gray-900">
-                        <%= t("home.faq.anonymous") %>
-                    </dt>
-                    <dd class="mt-2 text-base text-gray-500">
-                        <%= t("home.faq.anonymous_answer") %>
-                    </dd>
+    <div class="block">
+        <div class="container px-4 py-4 mx-auto">
+            <div class="flex">
+                <div class="w-1/2">
+                    <div class="rounded-md p-6 bg-white">
+                        <div class="mb-2 pb-2">
+                            <h3 class="font-semibold sm:text-2xl lg:text-lg text-black"><%= t("home.stats.macos_distribution") %></h3>
+                        </div>
+                        <%= pie_chart CommandEvent.group(:macos_version).count, colors: ApplicationHelper::TuistGraphColorPalette  %>
+                    </div>
                 </div>
+                <div class="w-1/2 ml-4">
+                    <div class="rounded-md p-6 bg-white">
+                        <div class="mb-2 pb-2">
+                            <h3 class="font-semibold sm:text-2xl lg:text-lg text-black"><%= t("home.stats.swift_distribution") %></h3>
+                        </div>
+                        <%= pie_chart CommandEvent.group(:swift_version).count, colors: ApplicationHelper::TuistGraphColorPalette  %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <div>
-                    <dt class="text-lg leading-6 font-medium text-gray-900">
-                        <%= t("home.faq.new_dashboard") %>
-                    </dt>
-                    <dd class="mt-2 text-base text-gray-500">
-                        <%= t("home.faq.new_dashboard_answer") %>
-                        <a href="https://github.com/tuist/stats" target="_blank" class="text-base text-gray-900 hover:text-primary hover:underline">
-                            <%= t("home.faq.new_dashboard_answer_link") %>
-                        </a>
-                    </dd>
-                </div>
+    <!-- Why -->
 
-                <div>
-                    <dt class="text-lg leading-6 font-medium text-gray-900">
-                        <%= t("home.faq.new_event") %>
-                    </dt>
-                    <dd class="mt-2 text-base text-gray-500">
-                        <%= t("home.faq.new_event_answer_part1") %>
-                        <a href="https://github.com/tuist/tuist" target="_blank" class="text-base text-gray-900 hover:text-primary hover:underline">
-                            <%= t("home.faq.new_event_answer_link") %>
-                        </a>
-                        </br>
-                        <%= t("home.faq.new_event_answer_part2") %>
-                    </dd>
-                </div>
+    <div class="bg-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 divide-y-2 divide-primary sm:py-24 sm:px-6 lg:px-8" id="faq">
+            <h2 class="sm:text-4xl lg:text-3xl font-extrabold text-gray-900">
+                <%= t("home.faq.title") %>
+            </h2>
+            <div class="mt-6 pt-10">
+                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-8 md:gap-y-12">
+                    <div>
+                        <dt class="sm:text-2xl lg:text-lg leading-6 font-medium text-gray-900">
+                            <%= t("home.faq.why") %>
+                        </dt>
+                        <dd class="mt-2 sm:text-xl lg:text-base text-gray-500">
+                            <%= t("home.faq.why_answer") %>
+                        </dd>
+                    </div>
 
-                <div>
-                    <dt class="text-lg leading-6 font-medium text-gray-900">
-                        <%= t("home.faq.what") %>
-                    </dt>
-                    <dd class="mt-2 text-base text-gray-500">
-                        <%= t("home.faq.what_answer_part1") %>
-                        </br>
-                        <%= t("home.faq.what_answer_part2") %>
-                    </dd>
-                </div>
-            </dl>
+                    <div>
+                        <dt class="sm:text-2xl lg:text-lg leading-6 font-medium text-gray-900">
+                            <%= t("home.faq.opt_out") %>
+                        </dt>
+                        <dd class="mt-2 sm:text-xl lg:text-base text-gray-500">
+                            <%= t("home.faq.opt_out_answer") %>
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt class="sm:text-2xl lg:text-lg leading-6 font-medium text-gray-900">
+                            <%= t("home.faq.anonymous") %>
+                        </dt>
+                        <dd class="mt-2 sm:text-xl lg:text-base text-gray-500">
+                            <%= t("home.faq.anonymous_answer") %>
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt class="sm:text-2xl lg:text-lg leading-6 font-medium text-gray-900">
+                            <%= t("home.faq.new_dashboard") %>
+                        </dt>
+                        <dd class="mt-2 sm:text-xl lg:text-base text-gray-500">
+                            <%= t("home.faq.new_dashboard_answer") %>
+                            <a href="https://github.com/tuist/stats" target="_blank" class="sm:text-xl lg:text-base text-gray-900 hover:text-primary hover:underline">
+                                <%= t("home.faq.new_dashboard_answer_link") %>
+                            </a>
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt class="sm:text-2xl lg:text-lg leading-6 font-medium text-gray-900">
+                            <%= t("home.faq.new_event") %>
+                        </dt>
+                        <dd class="mt-2 sm:text-xl lg:text-base text-gray-500">
+                            <%= t("home.faq.new_event_answer_part1") %>
+                            <a href="https://github.com/tuist/tuist" target="_blank" class="sm:text-xl lg:text-base text-gray-900 hover:text-primary hover:underline">
+                                <%= t("home.faq.new_event_answer_link") %>
+                            </a>
+                            </br>
+                            <%= t("home.faq.new_event_answer_part2") %>
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt class="sm:text-2xl lg:text-lg leading-6 font-medium text-gray-900">
+                            <%= t("home.faq.what") %>
+                        </dt>
+                        <dd class="mt-2 sm:text-xl lg:text-base text-gray-500">
+                            <%= t("home.faq.what_answer_part1") %>
+                            </br>
+                            <%= t("home.faq.what_answer_part2") %>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
     </div>
 </div>
