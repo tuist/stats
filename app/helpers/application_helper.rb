@@ -7,5 +7,5 @@ module ApplicationHelper
     end
   end
 
-  TuistGraphColorPalette = ["#6236FF", "#A0E7E5", "#B4F8C8", "#FF8210", "#FBC858", "#BACC81"]
+  TuistGraphColorPalette = ["#6236FF", "#8FBFE0", "#1D8A99", "#0BC9CD", "#14FFF7", "#E2E4F6", "#E7C8DD", "#DBAFC1"]
 end
