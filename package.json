@@ -6,7 +6,7 @@
     "test": "yarn jest"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.12.1",
+    "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
