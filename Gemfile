@@ -33,7 +33,7 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "rubocop", "~> 0.93.0"
-  gem "rubocop-rails", "~> 2.8.1"
+  gem "rubocop-rails", "~> 2.9.1"
   gem "rubocop-rails_config"
   gem "foreman", "~> 0.87.2"
   gem "brakeman", "~> 4.10"
