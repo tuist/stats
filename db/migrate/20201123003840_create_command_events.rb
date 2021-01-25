@@ -11,7 +11,6 @@ class CreateCommandEvents < ActiveRecord::Migration[6.0]
       t.string :tuist_version
       t.string :swift_version
       t.string :macos_version
-
       t.timestamps
     end
   end

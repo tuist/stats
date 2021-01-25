@@ -75,7 +75,17 @@ class CommandEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def command_event_params
-      params.require(:command_event).permit(:name, :subcommand, :params, :duration, :client_id, :tuist_version, :swift_version, :macos_version)
+      params.require(:command_event).permit(
+        :name,
+        :subcommand,
+        :duration,
+        :client_id,
+        :tuist_version,
+        :swift_version,
+        :macos_version,
+        :machine_hardware_name,
+        params: {} # Allow any key inside the params JSON
+        )
     end
 
     def restrict_to_development
