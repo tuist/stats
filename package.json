@@ -23,7 +23,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "chart.js": "^2.9.4",
     "chartkick": "^3.2.1",
-    "graphql": "^15.4.0",
+    "graphql": "^15.5.0",
     "graphql-ruby-client": "^1.8.1",
     "graphql-tag": "^2.11.0",
     "postcss-flexbugs-fixes": "^4.2.1",
