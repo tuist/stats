@@ -16,9 +16,9 @@ gem "bootsnap", ">= 1.4.2", require: false
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "sentry-raven"
 gem "devise"
-gem "omniauth", "~> 1.9"
+gem "omniauth", "~> 2.0"
 gem "omniauth-rails_csrf_protection", "~> 0.1.2"
-gem "omniauth-github", "~> 1.4"
+gem "omniauth-github", "~> 2.0"
 gem "google-cloud-bigquery", "~> 1.24"
 gem "chartkick", "~> 3.4"
 gem "groupdate", "~> 5.2"
