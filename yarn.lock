@@ -5491,10 +5491,10 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
 
-graphql-ruby-client@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/graphql-ruby-client/-/graphql-ruby-client-1.8.1.tgz#5f81cc9546f8b6edf7b279b90f38903950fe59d4"
-  integrity sha512-kaCvRaSSbIkj46EpDoyj/oHIn8H0k/LcXla51cirkSGeey8/KNqd5iDJ/xj1Q/O+FK4HQ9rATi+KvuJMvLBePA==
+graphql-ruby-client@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/graphql-ruby-client/-/graphql-ruby-client-1.8.2.tgz#35e5522f4d47bca84d255fbfb8a4402e6f20be95"
+  integrity sha512-P0OPA4Kyxc5H6ylK657eq1UbImilpqtsra+m8laZmKXK7eWw0aAyVa2EhFMzgSmV4RBAuzyr0l0BTRL6NJvAag==
   dependencies:
     "@types/ably" "^1.0.0"
     "@types/actioncable" "^5.2.3"
