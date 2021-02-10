@@ -18,8 +18,8 @@ en:
       most_used: "Most used commands"
       tuist_version: "Tuist version distribution"
       avg_duration: "Average duration of commands"
-      daily_generated: "Projects generated daily"
       macos_distribution: "macOS distribution"
+      daily_generated: "Tuist daily usage"
       swift_distribution: "Swift distribution"
     faq:
       title: "FAQ"
