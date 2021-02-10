@@ -140,6 +140,7 @@
                         <div class="mb-2 pb-2">
                             <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.macos_distribution") %></h3>
                         </div>
+                        <!-- macOS usage distribution -->
                         <%= pie_chart CommandEvent.group(:macos_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } }%>
                     </div>
                 </div>
@@ -148,6 +149,7 @@
                         <div class="mb-2 pb-2">
                             <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.swift_distribution") %></h3>
                         </div>
+                        <!-- Swift usage distribution -->
                         <%= pie_chart CommandEvent.group(:swift_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }  %>
                     </div>
                 </div>
