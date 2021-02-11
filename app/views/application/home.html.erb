@@ -1,327 +1,330 @@
 <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
 
-<nav class="fixed flex items-center justify-between flex-wrap bg-white p-4 w-full top-0 shadow">
-    <div class="flex items-center flex-shrink-0 text-white mr-6 sm:py-4 md:py-0">
-        <svg class="fill-current sm:h-16 lg:h-12 mr-2" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
-            <%= show_svg("logo.svg")%>
-        </svg>
-        <span class="font-semibold sm:text-4xl lg:text-xl text-black tracking-tight"><%= t("home.nav.title") %></span>
-    </div>
-    <div class="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto">
-        <div class="text-sm lg:flex-grow">
-            <a href="#faq" class="inline-block mt-4 p-4 rounded-md font-semibold lg:mt-0 text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
-                <%= t("home.nav.faq") %>
-            </a>
-            <a href="https://tuist.io" target="_blank" class="inline-block mt-4 p-4 rounded-md font-semibold lg:mt-0 text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
-                <%= t("home.nav.tuistweb") %>
-            </a>
-            <a href="https://github.com/tuist/tuist" target="_blank" class="inline-block mt-4 p-4 rounded-md font-semibold lg:mt-0 text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
-                <%= t("home.nav.github") %>
-            </a>
-            <a href="https://tuist.io/docs/" target="_blank" class="inline-block mt-4 p-4 rounded-md font-semibold lg:mt-0 text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
-                <%= t("home.nav.documentation") %>
-            </a>
-        </div>
-    </div>
-    <div class="mr-4 mt-0">
-        <a href="https://tuist.io/docs/usage/getting-started/" target="_blank" class="inline-block text-sm p-4 rounded font-medium tracking-wide bg-gradient-to-r from-primary to-purple-700 text-white hover:from-primary hover:to-primary">Get started</a>
-    </div>
-</nav>
-
-
-<!-- Container with padding -->
-<div class="mx-auto lg:px-32 bg-gray-100">
-    <div class="mt-32 mx-auto max-w-7xl lg:px-4 bg-gray-100">
-        <div class="text-center">
-            <h1 class="tracking-tight text-gray-900">
-                <span class="text-base font-semibold tracking-wider text-cyan-600 uppercase text-primary"> <%= t("home.headline.title") %></span>
-                <span class="block text-gray-900 font-extrabold text-4xl lg:text-6xl"> <%= t("home.headline.subtitle") %> </span>
-                <div id="generated-projects-counter" class="text-gray-900 font-extrabold text-6xl">0</div>
-            </h1>
-            <p class="mx-auto text-base text-gray-500 sm:text-5xl lg:text-xl mt-5 max-w-3xl">
-                <%= t("home.headline.p1") %>
-                </br>
-                <%= t("home.headline.p2") %>
-            </p>
-        </div>
-    </div>
-
-
-    <!-- Daily stats -->
-
-    <div id="wrapper" class="sm:max-w-3xl lg:max-w-xl py-4 mx-auto mt-8">
-        <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-2 sm:grid-cols-3">
-            <div id="jh-stats-positive" class="space-y-4 flex flex-col justify-center p-4 mt-4 border border-gray-300 rounded sm:mt-0 bg-gradient-to-b from-purple-500 to-purple-600">
-                <div class="flex-1 font-semibold text-center text-white text-3xl">
-                    <%= CommandEvent.where("name = 'generate' AND created_at >= ?", 1.day.ago.to_datetime).count %>
-                </div>
-                <p class="text-white text-center bg-purple-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold p-2"><%= t("home.stats.today_generated") %></p>
+<main class="bg-gray-100">
+    <header style="backdrop-filter: blur(4px);" class="fixed top-0 flex flex-col w-full">
+        <nav class="flex-1 flex items-center justify-between flex-wrap p-4 shadow">
+            <div class="flex items-center flex-shrink-0 text-white mr-6 sm:py-4 md:py-0">
+                <svg class="fill-current sm:h-16 lg:h-12 mr-2" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+                    <%= show_svg("logo.svg")%>
+                </svg>
+                <span class="font-semibold sm:text-4xl lg:text-xl text-black tracking-tight"><%= t("home.nav.title") %></span>
             </div>
-
-            <div id="jh-stats-negative" class="space-y-4 flex flex-col justify-center p-4 mt-4 border border-gray-300 rounded sm:mt-0 bg-gradient-to-b from-pink-500 to-pink-600">
-                <p class="flex-1 font-semibold text-center text-white text-3xl">
-                    <%= CommandEvent.where("name = 'focus' AND created_at >= ?", 1.day.ago.to_datetime).count %>
-                </p>
-                <div class="text-white text-center bg-pink-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold p-2"><%= t("home.stats.today_focused") %></div>
-            </div>
-
-            <div id="jh-stats-neutral" class="flex space-y-4 flex-col justify-center p-4 mt-4 border border-gray-300 rounded sm:mt-0 bg-gradient-to-b from-green-500 to-green-600">
-                <div class="flex-1 font-semibold text-center text-white text-3xl">
-                    <%= CommandEvent.where("name = 'cache' AND subcommand = 'warm' AND created_at >= ?", 1.day.ago.to_datetime).count %>
-                </div>
-                <div class="text-white text-center bg-green-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold p-2"><%= t("home.stats.today_cache") %></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="block sm:mt-24 lg:mt-8">
-        <div class="container lg:p-4 mx-auto">
-            <div class="flex">
-                <div class="w-1/2">
-                    <div class="rounded-md p-6 bg-white">
-                        <div class="mb-2 pb-2">
-                            <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.most_used") %></h3>
-                        </div>
-                        <!-- Most used commands -->
-                        <%= pie_chart CommandEvent.group(:name).count, donut:true,  colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } } %>
-                    </div>
-                </div>
-                <div class="w-1/2 ml-4">
-                    <div class="rounded-md p-6 bg-white">
-                        <div class="mb-2 pb-2">
-                            <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.tuist_version") %></h3>
-                        </div>
-                        <!-- Tuist version distribution -->
-                        <%= pie_chart CommandEvent.group(:tuist_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
-                    </div>
+            <div class="w-full hidden flex-grow lg:flex lg:items-center lg:w-auto">
+                <div class="text-sm lg:flex-grow">
+                    <a href="#faq" class="inline-block p-3 rounded-md font-semibold text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
+                        <%= t("home.nav.faq") %>
+                    </a>
+                    <a href="https://tuist.io" target="_blank" class="inline-block p-3 rounded-md font-semibold lg:mt-0 text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
+                        <%= t("home.nav.tuistweb") %>
+                    </a>
+                    <a href="https://github.com/tuist/tuist" target="_blank" class="inline-block p-3 rounded-md font-semibold lg:mt-0 text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
+                        <%= t("home.nav.github") %>
+                    </a>
+                    <a href="https://tuist.io/docs/" target="_blank" class="inline-block p-3 rounded-md font-semibold lg:mt-0 text-black-200 hover:bg-purple-100 hover:text-primary mr-4">
+                        <%= t("home.nav.documentation") %>
+                    </a>
                 </div>
             </div>
-        </div>
-    </div>
-
-
-    <div class="block">
-        <div class="container lg:p4 mx-auto">
-            <div class="flex">
-                <div class="w-1/2">
-                    <div class="rounded-md p-6 bg-white">
-                        <div class="mb-2 pb-2">
-                            <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.avg_duration") %></h3>
-                        </div>
-                        <!-- Average command duration -->
-                        <%= bar_chart CommandEvent.group(:name).average(:duration), colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
-                    </div>
-                </div>
-                <div class="w-1/2 ml-4">
-                    <div class="rounded-md p-6 bg-white">
-                        <div class="mb-2 pb-2">
-                            <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.daily_used") %></h3>
-                        </div>
-                        <!-- Daily used commands -->
-                        <%= line_chart CommandEvent.group_by_day(:created_at).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="block">
-        <div class="container lg:p-4 mx-auto">
-            <div class="flex">
-                <div class="w-1/2">
-                    <div class="rounded-md p-6 bg-white">
-                        <div class="mb-2 pb-2">
-                            <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.macos_distribution") %></h3>
-                        </div>
-                        <!-- macOS usage distribution -->
-                        <%= pie_chart CommandEvent.group(:macos_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } }%>
-                    </div>
-                </div>
-                <div class="w-1/2 ml-4">
-                    <div class="rounded-md p-6 bg-white">
-                        <div class="mb-2 pb-2">
-                            <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.swift_distribution") %></h3>
-                        </div>
-                        <!-- Swift usage distribution -->
-                        <%= pie_chart CommandEvent.group(:swift_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }  %>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FAQ -->
-
-    <div class="bg-white">
-        <div class="max-w-7xl mx-auto sm:py-4 lg:py-16 sm:px-16 lg:px-8 divide-y-2 divide-primary" id="faq">
-            <h2 class="sm:text-4xl lg:text-3xl font-extrabold text-gray-900">
-                <%= t("home.faq.title") %>
-            </h2>
-            <div class="mt-6 pt-10">
-                <dl class="space-y-10 grid sm:grid-cols-1 lg:grid-cols-2 sm:grid-rows-1 lg:grid-rows-2 gap-x-8 gap-y-12">
-                    <div>
-                        <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900 mt-10">
-                            <%= t("home.faq.why") %>
-                        </dt>
-                        <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
-                            <%= t("home.faq.why_answer") %>
-                        </dd>
-                    </div>
-
-                    <div>
-                        <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
-                            <%= t("home.faq.opt_out") %>
-                        </dt>
-                        <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
-                            <%= t("home.faq.opt_out_answer") %>
-                            <a href="https://tuist.io/docs/usage/stats/" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
-                                <%= t("home.faq.opt_out_answer_link") %>
-                            </a>
-                            <%= t("home.faq.opt_out_answer_part2") %>
-                        </dd>
-                    </div>
-
-                    <div>
-                        <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
-                            <%= t("home.faq.anonymous") %>
-                        </dt>
-                        <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
-                            <%= t("home.faq.anonymous_answer") %>
-                            <a href="https://github.com/tuist/tuist/tree/main/Sources/TuistAnalytics" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
-                                <%= t("home.faq.anonymous_answer_link") %>
-                            </a>
-                        </dd>
-                    </div>
-
-                    <div>
-                        <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
-                            <%= t("home.faq.new_dashboard") %>
-                        </dt>
-                        <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
-                            <%= t("home.faq.new_dashboard_answer") %>
-                            <a href="https://github.com/tuist/stats" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
-                                <%= t("home.faq.new_dashboard_answer_link") %>
-                            </a>
-                        </dd>
-                    </div>
-
-                    <div>
-                        <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
-                            <%= t("home.faq.new_event") %>
-                        </dt>
-                        <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
-                            <%= t("home.faq.new_event_answer_part1") %>
-                            <a href="https://github.com/tuist/tuist" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
-                                <%= t("home.faq.new_event_answer_link") %>
-                            </a>
-                            <%= t("home.faq.new_event_answer_part2") %>
-                        </dd>
-                    </div>
-
-                    <div>
-                        <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
-                            <%= t("home.faq.what") %>
-                        </dt>
-                        <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
-                            <%= t("home.faq.what_answer_part1") %>
-                            <a href="https://tuist.io/docs/contribution/analytics-events/" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
-                                <%= t("home.faq.what_answer_link") %>
-                            </a>
-                            <%= t("home.faq.what_answer_part2") %>
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Footer -->
-
-<footer class="bg-gray-800 sm:mt-16 mt-8">
-    <div class="max-w-7xl mx-auto sm:py-24 lg:py-12 px-8 overflow-hidden">
-        <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
-            <div class="px-5 py-2">
-                <a href="https://www.tuist.io/docs/usage/getting-started/" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
-                    <%= t("home.footer.get_started") %>
-                </a>
-            </div>
-
-            <div class="px-5 py-2">
-                <a href="https://github.com/tuist/tuist" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
-                    <%= t("home.footer.contribute") %>
-                </a>
-            </div>
-
-            <div class="px-5 py-2">
-                <a href="https://tuist.io/docs" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
-                    <%= t("home.footer.documentation") %>
-                </a>
-            </div>
-
-            <div class="px-5 py-2">
-                <a href="https://www.tuist.io/" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
-                    <%= t("home.footer.tuist_website") %>
-                </a>
-            </div>
-
-            <div class="px-5 py-2">
-                <a href="http://slack.tuist.io/" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
-                    <%= t("home.footer.slack") %>
-                </a>
+            <div class="mr-4 mt-0">
+                <a href="https://tuist.io/docs/usage/getting-started/" target="_blank" class="inline-block text-sm p-4 rounded font-medium tracking-wide bg-gradient-to-r from-primary to-purple-700 text-white hover:from-primary hover:to-primary">Get started</a>
             </div>
         </nav>
-        <div class="mt-8 flex justify-center space-x-6">
-            <a href="https://www.twitter.com/tuistio" target="_blank" class="text-gray-400 hover:text-gray-500">
-                <span class="sr-only">Twitter</span>
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                </svg>
-            </a>
+    </header>
 
-            <a href="https://www.github.com/tuist/tuist" class="text-gray-400 hover:text-gray-500">
-                <span class="sr-only">GitHub</span>
-                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-                </svg>
-            </a>
+    <!-- Container with padding -->
+    <div class="pt-40 bg-gray-100">
+        <div class="mx-auto max-w-7xl lg:px-4">
+            <div class="text-center">
+                <h1 class="tracking-tight text-gray-900">
+                    <span class="text-4xl font-bold text-primary"> <%= t("home.headline.title") %></span>
+                    <span class="block text-gray-900 font-extrabold text-4xl lg:text-6xl"> <%= t("home.headline.subtitle") %> </span>
+                    <div id="generated-projects-counter" class="text-gray-900 font-extrabold text-6xl">0</div>
+                </h1>
+                <p class="mx-auto text-base text-gray-500 sm:text-5xl lg:text-xl mt-5 max-w-3xl">
+                    <%= t("home.headline.p1") %>
+                    </br>
+                    <%= t("home.headline.p2") %>
+                </p>
+            </div>
+        </div>
+
+
+        <!-- Daily stats -->
+
+        <div id="wrapper" class="sm:max-w-3xl lg:max-w-xl py-4 mx-auto mt-8">
+            <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-2 sm:grid-cols-3">
+                <div id="jh-stats-positive" class="space-y-4 flex flex-col justify-center p-4 mt-4 border border-gray-300 rounded sm:mt-0 bg-gradient-to-b from-purple-500 to-purple-600">
+                    <div class="flex-1 font-semibold text-center text-white text-3xl">
+                        <%= CommandEvent.where("name = 'generate' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                    </div>
+                    <p class="text-white text-center bg-purple-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold p-2"><%= t("home.stats.today_generated") %></p>
+                </div>
+
+                <div id="jh-stats-negative" class="space-y-4 flex flex-col justify-center p-4 mt-4 border border-gray-300 rounded sm:mt-0 bg-gradient-to-b from-pink-500 to-pink-600">
+                    <p class="flex-1 font-semibold text-center text-white text-3xl">
+                        <%= CommandEvent.where("name = 'focus' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                    </p>
+                    <div class="text-white text-center bg-pink-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold p-2"><%= t("home.stats.today_focused") %></div>
+                </div>
+
+                <div id="jh-stats-neutral" class="flex space-y-4 flex-col justify-center p-4 mt-4 border border-gray-300 rounded sm:mt-0 bg-gradient-to-b from-green-500 to-green-600">
+                    <div class="flex-1 font-semibold text-center text-white text-3xl">
+                        <%= CommandEvent.where("name = 'cache' AND subcommand = 'warm' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                    </div>
+                    <div class="text-white text-center bg-green-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold p-2"><%= t("home.stats.today_cache") %></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block sm:mt-24 lg:mt-8">
+            <div class="container lg:p-4 mx-auto">
+                <div class="flex">
+                    <div class="w-1/2">
+                        <div class="rounded-md p-6 bg-white">
+                            <div class="mb-2 pb-2">
+                                <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.most_used") %></h3>
+                            </div>
+                            <!-- Most used commands -->
+                            <%= pie_chart CommandEvent.group(:name).count, donut:true,  colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } } %>
+                        </div>
+                    </div>
+                    <div class="w-1/2 ml-4">
+                        <div class="rounded-md p-6 bg-white">
+                            <div class="mb-2 pb-2">
+                                <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.tuist_version") %></h3>
+                            </div>
+                            <!-- Tuist version distribution -->
+                            <%= pie_chart CommandEvent.group(:tuist_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="block">
+            <div class="container lg:p4 mx-auto">
+                <div class="flex">
+                    <div class="w-1/2">
+                        <div class="rounded-md p-6 bg-white">
+                            <div class="mb-2 pb-2">
+                                <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.avg_duration") %></h3>
+                            </div>
+                            <!-- Average command duration -->
+                            <%= bar_chart CommandEvent.group(:name).average(:duration), colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
+                        </div>
+                    </div>
+                    <div class="w-1/2 ml-4">
+                        <div class="rounded-md p-6 bg-white">
+                            <div class="mb-2 pb-2">
+                                <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.daily_used") %></h3>
+                            </div>
+                            <!-- Daily used commands -->
+                            <%= line_chart CommandEvent.group_by_day(:created_at).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="container lg:p-4 mx-auto">
+                <div class="flex">
+                    <div class="w-1/2">
+                        <div class="rounded-md p-6 bg-white">
+                            <div class="mb-2 pb-2">
+                                <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.macos_distribution") %></h3>
+                            </div>
+                            <!-- macOS usage distribution -->
+                            <%= pie_chart CommandEvent.group(:macos_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } }%>
+                        </div>
+                    </div>
+                    <div class="w-1/2 ml-4">
+                        <div class="rounded-md p-6 bg-white">
+                            <div class="mb-2 pb-2">
+                                <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.swift_distribution") %></h3>
+                            </div>
+                            <!-- Swift usage distribution -->
+                            <%= pie_chart CommandEvent.group(:swift_version).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }  %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+
+        <div class="bg-white">
+            <div class="max-w-7xl mx-auto sm:py-4 lg:py-16 sm:px-16 lg:px-8 divide-y-2 divide-primary" id="faq">
+                <h2 class="sm:text-4xl lg:text-3xl font-extrabold text-gray-900">
+                    <%= t("home.faq.title") %>
+                </h2>
+                <div class="mt-6 pt-10">
+                    <dl class="space-y-10 grid sm:grid-cols-1 lg:grid-cols-2 sm:grid-rows-1 lg:grid-rows-2 gap-x-8 gap-y-12">
+                        <div>
+                            <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900 mt-10">
+                                <%= t("home.faq.why") %>
+                            </dt>
+                            <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
+                                <%= t("home.faq.why_answer") %>
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
+                                <%= t("home.faq.opt_out") %>
+                            </dt>
+                            <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
+                                <%= t("home.faq.opt_out_answer") %>
+                                <a href="https://tuist.io/docs/usage/stats/" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
+                                    <%= t("home.faq.opt_out_answer_link") %>
+                                </a>
+                                <%= t("home.faq.opt_out_answer_part2") %>
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
+                                <%= t("home.faq.anonymous") %>
+                            </dt>
+                            <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
+                                <%= t("home.faq.anonymous_answer") %>
+                                <a href="https://github.com/tuist/tuist/tree/main/Sources/TuistAnalytics" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
+                                    <%= t("home.faq.anonymous_answer_link") %>
+                                </a>
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
+                                <%= t("home.faq.new_dashboard") %>
+                            </dt>
+                            <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
+                                <%= t("home.faq.new_dashboard_answer") %>
+                                <a href="https://github.com/tuist/stats" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
+                                    <%= t("home.faq.new_dashboard_answer_link") %>
+                                </a>
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
+                                <%= t("home.faq.new_event") %>
+                            </dt>
+                            <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
+                                <%= t("home.faq.new_event_answer_part1") %>
+                                <a href="https://github.com/tuist/tuist" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
+                                    <%= t("home.faq.new_event_answer_link") %>
+                                </a>
+                                <%= t("home.faq.new_event_answer_part2") %>
+                            </dd>
+                        </div>
+
+                        <div>
+                            <dt class="sm:text-4xl lg:text-xl leading-6 font-medium text-gray-900">
+                                <%= t("home.faq.what") %>
+                            </dt>
+                            <dd class="mt-2 sm:text-2xl lg:text-lg text-gray-500">
+                                <%= t("home.faq.what_answer_part1") %>
+                                <a href="https://tuist.io/docs/contribution/analytics-events/" target="_blank" class="sm:text-2xl lg:text-lg text-gray-900 hover:text-primary hover:underline">
+                                    <%= t("home.faq.what_answer_link") %>
+                                </a>
+                                <%= t("home.faq.what_answer_part2") %>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
-</footer>
 
-<script>
-    function animateValue(id, start, end, duration) {
-        // assumes integer values for start and end
+    <!-- Footer -->
 
-        var obj = document.getElementById(id);
-        var range = end - start;
-        // no timer shorter than 50ms (not really visible any way)
-        var minTimer = 50;
-        // calc step time to show all interediate values
-        var stepTime = Math.abs(Math.floor(duration / range));
+    <footer class="bg-gray-800 sm:mt-16 mt-8">
+        <div class="max-w-7xl mx-auto sm:py-24 lg:py-12 px-8 overflow-hidden">
+            <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+                <div class="px-5 py-2">
+                    <a href="https://www.tuist.io/docs/usage/getting-started/" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
+                        <%= t("home.footer.get_started") %>
+                    </a>
+                </div>
 
-        // never go below minTimer
-        stepTime = Math.max(stepTime, minTimer);
+                <div class="px-5 py-2">
+                    <a href="https://github.com/tuist/tuist" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
+                        <%= t("home.footer.contribute") %>
+                    </a>
+                </div>
 
-        // get current time and calculate desired end time
-        var startTime = new Date().getTime();
-        var endTime = startTime + duration;
-        var timer;
+                <div class="px-5 py-2">
+                    <a href="https://tuist.io/docs" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
+                        <%= t("home.footer.documentation") %>
+                    </a>
+                </div>
 
-        function run() {
-            var now = new Date().getTime();
-            var remaining = Math.max((endTime - now) / duration, 0);
-            var value = Math.round(end - (remaining * range));
-            obj.innerHTML = value;
-            if (value == end) {
-                clearInterval(timer);
+                <div class="px-5 py-2">
+                    <a href="https://www.tuist.io/" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
+                        <%= t("home.footer.tuist_website") %>
+                    </a>
+                </div>
+
+                <div class="px-5 py-2">
+                    <a href="http://slack.tuist.io/" target="_blank" class="sm:text-xl lg:text-base text-gray-500 hover:text-primary hover:underline">
+                        <%= t("home.footer.slack") %>
+                    </a>
+                </div>
+            </nav>
+            <div class="mt-8 flex justify-center space-x-6">
+                <a href="https://www.twitter.com/tuistio" target="_blank" class="text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">Twitter</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                    </svg>
+                </a>
+
+                <a href="https://www.github.com/tuist/tuist" class="text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">GitHub</span>
+                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function animateValue(id, start, end, duration) {
+            // assumes integer values for start and end
+
+            var obj = document.getElementById(id);
+            var range = end - start;
+            // no timer shorter than 50ms (not really visible any way)
+            var minTimer = 50;
+            // calc step time to show all interediate values
+            var stepTime = Math.abs(Math.floor(duration / range));
+
+            // never go below minTimer
+            stepTime = Math.max(stepTime, minTimer);
+
+            // get current time and calculate desired end time
+            var startTime = new Date().getTime();
+            var endTime = startTime + duration;
+            var timer;
+
+            function run() {
+                var now = new Date().getTime();
+                var remaining = Math.max((endTime - now) / duration, 0);
+                var value = Math.round(end - (remaining * range));
+                obj.innerHTML = value;
+                if (value == end) {
+                    clearInterval(timer);
+                }
             }
+
+            timer = setInterval(run, stepTime);
+            run();
         }
 
-        timer = setInterval(run, stepTime);
-        run();
-    }
-
-    var generated_projects = "<%= CommandEvent.where('name = ?','generate').count %>";
-    animateValue("generated-projects-counter", 0, generated_projects, 500);
-</script>
+        var generated_projects = "<%= CommandEvent.where('name = ?','generate').count %>";
+        animateValue("generated-projects-counter", 0, generated_projects, 500);
+    </script>
+</main>
