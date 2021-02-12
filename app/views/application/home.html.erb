@@ -68,7 +68,11 @@
 
                 <div id="jh-stats-neutral" class="flex space-y-4 flex-col justify-center p-4 mt-4 border border-gray-300 rounded sm:mt-0 bg-gradient-to-b from-green-500 to-green-600">
                     <div class="flex-1 font-semibold text-center text-white text-3xl">
-                        <%= CommandEvent.where("name = 'cache' AND subcommand = 'warm' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                        <%= CommandEvent.where("name = 'warm' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                        <!-- 
+                            TODO: switch to <%= CommandEvent.where("name = 'cache' AND subcommand = 'warm' AND created_at >= ?", 1.day.ago.to_datetime).count %>
+                            once https://github.com/tuist/tuist/pull/2508 is released
+                        !-->
                     </div>
                     <div class="text-white text-center bg-green-800 bg-opacity-50 hover:bg-opacity-75 transition-colors duration-200 rounded-xl font-semibold p-2"><%= t("home.stats.today_cache") %></div>
                 </div>
