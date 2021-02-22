@@ -88,7 +88,7 @@
                                 <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.most_used") %></h3>
                             </div>
                             <!-- Most used commands -->
-                            <%= pie_chart CommandEvent.group(:name).order("count(name) DESC").limit(9).count, donut:true,  colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } } %>
+                            <%= pie_chart CommandEvent.group(:name).order("count(name) DESC").limit(18).count, donut:true,  colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } } %>
                         </div>
                     </div>
                 </div>
