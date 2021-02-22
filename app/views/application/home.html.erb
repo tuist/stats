@@ -88,7 +88,7 @@
                                 <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.most_used") %></h3>
                             </div>
                             <!-- Most used commands -->
-                            <%= pie_chart CommandEvent.group(:name).order("count(name) DESC").count, donut:true,  colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } } %>
+                            <%= pie_chart CommandEvent.group(:name).order("count(name) DESC").limit(9).count, donut:true,  colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } } %>
                         </div>
                     </div>
                 </div>
@@ -104,13 +104,13 @@
                                 <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.tuist_version") %></h3>
                             </div>
                             <!-- Tuist version distribution -->
-                            <%= pie_chart CommandEvent.group(:tuist_version).order("count(tuist_version) DESC").count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
+                            <%= pie_chart CommandEvent.group(:tuist_version).order("count(tuist_version) DESC").limit(9).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
 
         <div class="block sm:mt-24 lg:mt-8">
             <div class="container lg:p-4 mx-auto">
@@ -121,7 +121,7 @@
                                 <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.avg_duration") %></h3>
                             </div>
                             <!-- Average command duration -->
-                            <%= bar_chart CommandEvent.group(:name).where("name != 'edit'").order("avg(duration) DESC").average(:duration), colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
+                            <%= bar_chart CommandEvent.group(:name).where("name != 'edit'").order("avg(duration) DESC").limit(9).average(:duration).transform_values { |v| v / 1000 }, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                             <div class="mb-2 pb-2">
                                 <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.daily_used") %></h3>
                             </div>
-                           <!-- Daily used commands -->
+                            <!-- Daily used commands -->
                             <%= line_chart CommandEvent.group_by_day(:created_at).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }%>
                         </div>
                     </div>
@@ -152,8 +152,8 @@
                             <div class="mb-2 pb-2">
                                 <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.macos_distribution") %></h3>
                             </div>
-                          <!-- macOS usage distribution -->
-                            <%= pie_chart CommandEvent.group(:macos_version).order("count(macos_version) DESC").count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } }%>
+                            <!-- macOS usage distribution -->
+                            <%= pie_chart CommandEvent.group(:macos_version).order("count(macos_version) DESC").limit(9).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "left", labels: { fontSize: 20, fontColor: "black" } } }%>
                         </div>
                     </div>
                 </div>
@@ -168,8 +168,8 @@
                             <div class="mb-2 pb-2">
                                 <h3 class="font-semibold sm:text-4xl sm:text-center lg:text-left lg:text-lg text-black"><%= t("home.stats.swift_distribution") %></h3>
                             </div>
-                         <!-- Swift usage distribution -->
-                            <%= pie_chart CommandEvent.group(:swift_version).order("count(swift_version) DESC").count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }  %>
+                            <!-- Swift usage distribution -->
+                            <%= pie_chart CommandEvent.group(:swift_version).order("count(swift_version) DESC").limit(9).count, colors: ApplicationHelper::TuistGraphColorPalette, library: { legend: { position: "right", labels: { fontSize: 20, fontColor: "black" } } }  %>
                         </div>
                     </div>
                 </div>

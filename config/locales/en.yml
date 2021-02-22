@@ -17,7 +17,7 @@ en:
       today_cache: "Projects cached today"
       most_used: "Most used commands"
       tuist_version: "Tuist version distribution"
-      avg_duration: "Average duration of commands"
+      avg_duration: "Average duration of commands in seconds"
       daily_used: "Commands executed per day"
       macos_distribution: "macOS distribution"
       swift_distribution: "Swift distribution"
