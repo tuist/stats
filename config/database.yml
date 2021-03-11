@@ -44,7 +44,7 @@ development:
 
 test:
   <<: *default
-  database: stats_test
+  database: stats_development
 
 production:
   <<: *default
