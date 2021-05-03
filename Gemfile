@@ -20,7 +20,7 @@ gem "omniauth", "~> 1.9"
 gem "omniauth-rails_csrf_protection", "~> 0.1.2"
 gem "omniauth-github", "~> 1.4"
 gem "google-cloud-bigquery", "~> 1.24"
-gem "chartkick", "~> 3.4"
+gem "chartkick", "~> 4.0"
 gem "groupdate", "~> 5.2"
 
 group :development, :test do
