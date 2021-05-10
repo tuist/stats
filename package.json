@@ -17,7 +17,7 @@
     "@rails/webpacker": "5.2.1",
     "@sentry/tracing": "^5.27.4",
     "@types/actioncable": "^5.2.3",
-    "actioncable": "^5.2.4-4",
+    "actioncable": "^5.2.6",
     "add": "^2.0.6",
     "autoprefixer": "^9.8.6",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
