@@ -13,7 +13,7 @@
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
+    "@rails/ujs": "^6.1.4",
     "@rails/webpacker": "5.2.1",
     "@sentry/tracing": "^5.27.4",
     "@types/actioncable": "^5.2.3",
