@@ -74,7 +74,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
-    chartkick (3.4.2)
+    chartkick (4.0.5)
     childprocess (3.0.0)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
@@ -329,7 +329,7 @@ DEPENDENCIES
   brakeman (~> 4.10)
   byebug
   capybara (>= 2.15)
-  chartkick (~> 3.4)
+  chartkick (~> 4.0)
   devise
   foreman (~> 0.87.2)
   google-cloud-bigquery (~> 1.24)
