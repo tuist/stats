@@ -36,7 +36,7 @@ group :development do
   gem "rubocop-rails", "~> 2.8.1"
   gem "rubocop-rails_config"
   gem "foreman", "~> 0.87.2"
-  gem "brakeman", "~> 4.10"
+  gem "brakeman", "~> 5.1"
 end
 
 group :test do
