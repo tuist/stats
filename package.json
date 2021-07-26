@@ -21,7 +21,7 @@
     "add": "^2.0.6",
     "autoprefixer": "^9.8.6",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "chart.js": "^2.9.4",
+    "chart.js": "^3.5.0",
     "chartkick": "^3.2.1",
     "graphql": "^15.4.0",
     "graphql-ruby-client": "^1.8.1",
