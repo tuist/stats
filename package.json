@@ -50,6 +50,6 @@
     "ts-jest": "^26.4.2",
     "tslint": "^6.1.3",
     "webpack-bundle-analyzer": "^3.9.0",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^4.0.0"
   }
 }
